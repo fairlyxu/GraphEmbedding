@@ -10,6 +10,7 @@ def test_LINE():
     model = LINE(G, embedding_size=2, order='second')
     model.train(batch_size=2, epochs=1, verbose=2)
     embeddings = model.get_embeddings()
+    print(embeddings)
 
 
 if __name__ == "__main__":
