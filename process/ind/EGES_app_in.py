@@ -38,8 +38,9 @@ if __name__ == "__main__":
     args = parse_args()
     model_out_dir = args.model_out_dir
     item_feat_name = ['d_st_2_did', 'd_st_cat3', 'd_st_from_type', 'd_st_offer']
-    len_item = 200000
-    feature_lens = [len_item, 150, 20, 5]
+    len_item = 100000
+    feature_lens = [len_item, 150, 100, 5]
+
     t1 = time.time()
     # item 特征
     with open(args.item_feat, 'rb') as file:
@@ -68,7 +69,7 @@ if __name__ == "__main__":
         item_df[feat] = item_df[feat].map(lambda x: fp.fit_transform(feat, x))
 
     item_df = item_df.sort_values(by=['d_st_2_did'], ascending=True)
-    print("item_df size :",len(item_df.values))
+    print(len(item_df.values))
     data = pd.read_csv(args.input,delimiter='\t', header= None,names=['ii1','ii2','w'])
     data = data.infer_objects()
     data['ii1'] = data['ii1'].astype(np.int)
@@ -96,6 +97,8 @@ if __name__ == "__main__":
     all_pairs = get_graph_data(model.sentences)
     print("graph: ", all_pairs.shape)
     print("init DeepWalk cost time:", time.time() - t2)
+
+
 
     print("feature_lens:", feature_lens)
 
@@ -163,3 +166,9 @@ if __name__ == "__main__":
 
     except:
         traceback.print_exc()
+
+
+
+
+
+
